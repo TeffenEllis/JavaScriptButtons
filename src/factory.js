@@ -49,6 +49,11 @@ module.exports = function factory(business, raw, config) {
     } else if (type === 'subscribe') {
         data.add('cmd', '_xclick-subscriptions');
 
+        if (parseInt(data.get('p3'), 10) === 0) {
+            data.add('p3', '1');
+            data.add('src', '1');
+        }
+
         if (data.get('amount') && !data.get('a3')) {
             data.add('a3', data.pluck('amount'));
         }

@@ -30,6 +30,25 @@ app.create = function (business, data, config, parent) {
     return result;
 };
 
+app.processElement = function processElement(node) {
+    var data = new DataStore();
+    var event = new Event('load');
+
+    data.parse(node);
+
+    app.create(data.pluck('merchant'), data, {
+        type: data.pluck('type'),
+        label: data.pluck('button'),
+        size: data.pluck('size'),
+        style: data.pluck('style'),
+        host: data.pluck('host')
+    },
+    node.parentNode);
+
+    // Clean up
+    node.dispatchEvent(event)
+    node.parentNode.removeChild(node);
+}
 
 app.process = function (el) {
     var nodes = el.getElementsByTagName('script'),
