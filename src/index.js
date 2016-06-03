@@ -30,13 +30,13 @@ app.create = function (business, data, config, parent) {
     return result;
 };
 
-app.processElement = function processElement(node) {
+app.processElement = function processElement(merchantID, node) {
     var data = new DataStore();
     var event = new Event('load');
 
     data.parse(node);
 
-    app.create(data.pluck('merchant'), data, {
+    app.create(merchantID, data, {
         type: data.pluck('type'),
         label: data.pluck('button'),
         size: data.pluck('size'),
